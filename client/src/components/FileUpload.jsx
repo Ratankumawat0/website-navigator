@@ -13,10 +13,10 @@ function FileUpload() {
     formData.append('file', file)
 
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData
-      })
+      const res = await fetch('http://localhost:5000/api/upload', {
+  method: 'POST',
+  body: formData
+})
 
       const data = await res.json()
       console.log(data)
@@ -26,7 +26,6 @@ function FileUpload() {
       } else {
         alert(data.message)
       }
-
     } catch (err) {
       console.log(err)
       alert('Upload failed')

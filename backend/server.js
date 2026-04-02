@@ -1,11 +1,13 @@
 const express = require('express')
-const multer = require('multer')
 const cors = require('cors')
+const multer = require('multer')
 const fs = require('fs')
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:5173'
+}))
 
 if (!fs.existsSync('uploads')) {
   fs.mkdirSync('uploads')
@@ -24,7 +26,6 @@ const upload = multer({ storage })
 
 app.post('/api/upload', upload.single('file'), (req, res) => {
   console.log('API HIT')
-  console.log(req.file)
 
   if (!req.file) {
     return res.status(400).json({ message: 'File not received' })
@@ -36,4 +37,6 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
   })
 })
 
-app.listen(5000, () => console.log('Server running on 5000'))
+app.listen(5000, () => {
+  console.log('Server running on 5000')
+})
